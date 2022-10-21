@@ -1,0 +1,70 @@
+### add users
+GET http://localhost:8080/api/v1/user/1/id
+Authorization: Basic my@email.com 123
+###
+
+GET http://localhost:8080/api/v1/user/list
+Authorization: Basic my@email.com 123
+###
+
+POST http://localhost:8080/api/v1/user/
+Authorization: Basic my@email.com 123
+Content-Type: application/json
+
+{
+  "id": 1,
+  "email": "my@email.com",
+  "password": "$2a$10$/kgIB/bDXLYhJz.1iDDRw.t4j/ipmfzrDgzX3qfJhhRYbw.9ykLYC"
+}
+
+### Get all products in store
+GET http://localhost:8080/api/v1/products/list
+Authorization: Basic my@email.com 123
+
+### add items
+POST http://localhost:8080/api/v1/products/
+Authorization: Basic my@email.com 123
+Content-Type: application/json
+
+{
+  "id": 2412,
+  "quantity": "1"
+}
+
+### add items
+POST http://localhost:8080/api/v1/products/
+Authorization: Basic my@email.com 123
+Content-Type: application/json
+
+{
+  "id": 2413,
+  "quantity": "1"
+}
+
+### add items
+POST http://localhost:8080/api/v1/products/
+Authorization: Basic my@email.com 123
+Content-Type: application/json
+
+{
+  "id": 2414,
+  "quantity": "1"
+}
+
+### get carts
+GET http://localhost:8080/api/v1/carts/cart
+Authorization: Basic my@email.com 123
+
+### get carts in session
+GET http://localhost:8080/api/v1/carts/cart/session
+Authorization: Basic my@email.com 123
+
+### delete item in carts
+GET http://localhost:8080/api/v1/products/2412/cart
+Authorization: Basic my@email.com 123
+
+### modify cart item
+GET http://localhost:8080/api/v1/products/2412/2.00/cart
+Authorization: Basic my@email.com 123
+###
+
