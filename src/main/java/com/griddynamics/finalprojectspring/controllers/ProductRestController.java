@@ -1,32 +1,27 @@
 package com.griddynamics.finalprojectspring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.dto.ProductDTO;
 import com.griddynamics.finalprojectspring.services.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/products")
 public class ProductRestController {
 
     private ProductService productService;
 
-    @Autowired
-    public void setService(ProductService service) {this.productService = service;}
-
-    @GetMapping(path = "/list", produces = "application/json")
+    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProductDTO> getAll() {return productService.getAll();}
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addProductInCart(@RequestBody ProductDTO product, Principal principal) {
         productService.addToUserCart(product.getId(), principal.getName());
     }

@@ -1,9 +1,11 @@
 package com.griddynamics.finalprojectspring.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,40 +19,37 @@ import org.springframework.web.bind.annotation.RestController;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.services.UserService;
 import com.griddynamics.finalprojectspring.services.UserServiceImpl;
+
 import java.util.List;
 
 @Tag(name = "User API", description = "Testing")
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/user")
-public class UserRestController  {
+public class UserRestController {
 
     private UserService service;
 
-    @Autowired
-    public void setService(UserServiceImpl service) {
-        this.service = service;
-    }
-
-    @GetMapping(path = "/{id}/id", produces = "application/json")
+    @GetMapping(path = "/{id}/id", produces = MediaType.APPLICATION_JSON_VALUE)
     public User findById(@PathVariable("id") Long id) throws NotFoundException {
         return service.findById(id).orElseThrow(NotFoundException::new);
     }
 
-    @GetMapping(path = "/list", produces = "application/json")
+    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> findAll() {
         return service.findAll();
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User createUser(@RequestBody User user) throws Exception {
-        if(!service.existById(user.getId())) {
+        if (!service.existById(user.getId())) {
             service.createOrUpdate(user);
             return user;
         }
         throw new Exception();
     }
 
-    @PutMapping(consumes = "application/json", produces = "application/json")
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@RequestBody User user) throws NotFoundException {
         if (service.existById(user.getId())) {
             service.createOrUpdate(user);
@@ -59,8 +58,8 @@ public class UserRestController  {
         throw new NotFoundException();
     }
 
-    @DeleteMapping (path = "/{id}/id")
-    public void  deleteById(@PathVariable("id") Long id) throws NotFoundException {
+    @DeleteMapping(path = "/{id}/id")
+    public void deleteById(@PathVariable("id") Long id) throws NotFoundException {
         service.deleteById(id);
     }
 
@@ -73,4 +72,4 @@ public class UserRestController  {
     public ResponseEntity<String> ExistExceptionHandler(Exception e) {
         return new ResponseEntity<>("Exist user", HttpStatus.CONFLICT);
     }
- }
+}
