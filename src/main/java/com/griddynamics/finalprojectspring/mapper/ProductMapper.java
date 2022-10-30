@@ -7,7 +7,6 @@ import com.griddynamics.finalprojectspring.dto.ProductDTO;
 import com.griddynamics.finalprojectspring.entities.Product;
 import java.util.List;
 
-
 @Mapper
 public interface ProductMapper {
     ProductMapper MAPPER = Mappers.getMapper(ProductMapper.class);
