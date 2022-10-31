@@ -18,23 +18,25 @@ public class ProductRestController {
 
     private ProductService productService;
 
-    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ProductDTO> getAll() {return productService.getAll();}
+    @RequestMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ProductDTO> getAll() {
+        return productService.getAll();
+    }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addProductInCart(@RequestBody ProductDTO product, Principal principal) {
         productService.addToUserCart(product.getId(), principal.getName());
     }
 
-    @GetMapping(path = "/{id}/cart")
+    @RequestMapping(path = "/{id}/cart")
     public void deleteProductInCart(@PathVariable("id") Long id, Principal principal) {
         productService.deleteToUserCart(id, principal.getName());
     }
 
-    @GetMapping(path = "/{id}/{quantity}/cart")
+    @RequestMapping(path = "/{id}/{quantity}/cart")
     public CartDTO Cart(@PathVariable Long id,
-                     @PathVariable BigDecimal quantity,
-                     Principal principal) {
+                        @PathVariable BigDecimal quantity,
+                        Principal principal) {
         return productService.updateToUserCart(id, quantity, principal.getName());
     }
 }
