@@ -21,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Role {
+
     private static final String SEQ_NAME = "role_seq";
 
     @Id

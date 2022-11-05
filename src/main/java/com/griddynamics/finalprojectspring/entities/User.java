@@ -25,6 +25,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User{
+
     private static final String SEQ_NAME = "user_seq";
 
     @Id

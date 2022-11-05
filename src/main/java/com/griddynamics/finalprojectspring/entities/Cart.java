@@ -23,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 public class Cart {
+
     private static final String SEQ_NAME = "cart_seq";
 
     @Id
