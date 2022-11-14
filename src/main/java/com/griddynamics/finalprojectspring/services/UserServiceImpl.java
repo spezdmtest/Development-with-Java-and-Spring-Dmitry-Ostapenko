@@ -36,11 +36,12 @@ public class  UserServiceImpl implements UserService{
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
-
+    @Transactional
     public Optional<User> findById(Long id) {
         return repository.findById(id);
     }
 
+    @Transactional
     public List<User> findAll() {
         return repository.findAll();
     }
@@ -50,13 +51,17 @@ public class  UserServiceImpl implements UserService{
         repository.deleteById(id);
     }
 
+    @Transactional
     public boolean existById(Long id) { return repository.existsById(id); }
 
     @Override
+    @Transactional
     public User findByName(String email) {
         return repository.findFirstByEmail(email);
     }
+
     @Override
+    @Transactional
     public void save(User user) {
         repository.save(user);
     }

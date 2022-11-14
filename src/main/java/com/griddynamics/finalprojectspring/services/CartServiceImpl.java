@@ -52,14 +52,15 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cart);
     }
 
-
-    private List<Product> getCollectProductsByIds(List<Long> productIds) {
+    @Transactional
+    public List<Product> getCollectProductsByIds(List<Long> productIds) {
         return productIds.stream()
                 .map(productRepository::getById)
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public void addProducts(Cart cart, List<Long> productIds) {
         List<Product> products = cart.getProducts();
         List<Product> newProductList = products == null ? new ArrayList<>() : new ArrayList<>(products);
@@ -69,6 +70,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void deleteProducts(Cart cart, List<Long> productsIds) {
         List<Product> products = cart.getProducts();
         List<Product> newProductList = products == null ? new ArrayList<>() : new ArrayList<>(products);
@@ -78,6 +80,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public CartDTO updateProducts(Long productId, BigDecimal quantity, String name) {
         CartDTO cartByUser = getCartByUser(name);
         List<CartDetailDTO> cart = cartByUser.getCart();
@@ -93,6 +96,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public CartDTO getCartByUser(String name) {
 
         User user = userService.findByName(name);
