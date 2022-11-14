@@ -53,7 +53,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    public List<Product> getCollectProductsByIds(List<Long> productIds) {
+    List<Product> getCollectProductsByIds(List<Long> productIds) {
         return productIds.stream()
                 .map(productRepository::getById)
                 .collect(Collectors.toList());
