@@ -29,7 +29,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
     public List<ProductDTO> getAll() {
         return mapper.fromProductList(repository.findAll());
     }

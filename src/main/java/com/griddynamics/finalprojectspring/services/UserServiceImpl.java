@@ -36,12 +36,12 @@ public class  UserServiceImpl implements UserService{
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
-    @Transactional
+
     public Optional<User> findById(Long id) {
         return repository.findById(id);
     }
 
-    @Transactional
+
     public List<User> findAll() {
         return repository.findAll();
     }
