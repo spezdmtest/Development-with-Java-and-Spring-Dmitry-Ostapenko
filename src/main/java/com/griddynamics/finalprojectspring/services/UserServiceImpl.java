@@ -21,15 +21,15 @@ public class  UserServiceImpl implements UserService{
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Autowired
-    private void setRepository(UserRepository repository) {
-        this.repository = repository;
-    }
+//    @Autowired
+//    private void setRepository(UserRepository repository) {
+//        this.repository = repository;
+//    }
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+//    @Autowired
+//    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Transactional
     public User createOrUpdate(User user){

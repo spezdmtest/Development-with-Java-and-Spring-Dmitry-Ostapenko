@@ -11,7 +11,7 @@ import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.repositories.UserRepository;
 
 
-public class UserServiceImplTest {
+class UserServiceImplTest {
     private UserRepository repository;
     private PasswordEncoder passwordEncoder;
     private UserService userService;
