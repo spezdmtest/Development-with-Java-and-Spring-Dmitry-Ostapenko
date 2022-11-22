@@ -7,6 +7,7 @@ import com.griddynamics.finalprojectspring.entities.Product;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.repositories.CartRepository;
 import com.griddynamics.finalprojectspring.repositories.ProductRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import static java.math.BigDecimal.ROUND_DOWN;
 
 
 @Service
+@Data
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
@@ -45,8 +47,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cart);
     }
 
-    @Transactional
-    List<Product> getCollectProductsByIds(List<Long> productIds) {
+     private List<Product> getCollectProductsByIds(List<Long> productIds) {
         return productIds.stream()
                 .map(productRepository::getById)
                 .collect(Collectors.toList());
@@ -73,7 +74,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    @Transactional
     public CartDTO updateProducts(Long productId, BigDecimal quantity, String name) {
         CartDTO cartByUser = getCartByUser(name);
         List<CartDetailDTO> cart = cartByUser.getCart();
