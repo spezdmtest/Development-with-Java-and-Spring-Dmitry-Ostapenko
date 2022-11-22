@@ -1,5 +1,6 @@
 package com.griddynamics.finalprojectspring.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,10 @@ import java.util.Optional;
 
 
 @Service
+@AllArgsConstructor
 public class  UserServiceImpl implements UserService{
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Transactional
     public User createOrUpdate(User user){
@@ -30,7 +26,6 @@ public class  UserServiceImpl implements UserService{
     public Optional<User> findById(Long id) {
         return repository.findById(id);
     }
-
 
     public List<User> findAll() {
         return repository.findAll();

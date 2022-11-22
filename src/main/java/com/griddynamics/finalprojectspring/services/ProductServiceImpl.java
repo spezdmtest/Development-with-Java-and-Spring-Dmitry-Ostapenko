@@ -1,5 +1,8 @@
 package com.griddynamics.finalprojectspring.services;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.dto.ProductDTO;
@@ -14,19 +17,12 @@ import java.util.List;
 
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper = ProductMapper.MAPPER;
     private final ProductRepository repository;
     private final UserService userService;
     private final CartService cartService;
-
-    public ProductServiceImpl(ProductRepository repository,
-                              UserService userService,
-                              CartService cartService) {
-        this.repository = repository;
-        this.userService = userService;
-        this.cartService = cartService;
-    }
 
     @Override
     public List<ProductDTO> getAll() {

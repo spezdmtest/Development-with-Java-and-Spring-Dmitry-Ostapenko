@@ -1,6 +1,5 @@
 package com.griddynamics.finalprojectspring.services;
 
-import org.springframework.stereotype.Service;
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.dto.CartDetailDTO;
 import com.griddynamics.finalprojectspring.entities.Cart;
@@ -8,18 +7,19 @@ import com.griddynamics.finalprojectspring.entities.Product;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.repositories.CartRepository;
 import com.griddynamics.finalprojectspring.repositories.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
+
 import static java.math.BigDecimal.ROUND_DOWN;
 
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
@@ -33,13 +33,6 @@ public class CartServiceImpl implements CartService {
 
     public void setNotQuantity(boolean quantity) {
         this.quantity = quantity;
-    }
-
-    public CartServiceImpl(CartRepository cartRepository,
-                           ProductRepository productRepository, UserService userService) {
-        this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
-        this.userService = userService;
     }
 
     @Override

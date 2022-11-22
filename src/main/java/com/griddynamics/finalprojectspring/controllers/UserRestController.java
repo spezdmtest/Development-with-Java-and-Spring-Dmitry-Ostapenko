@@ -1,5 +1,6 @@
 package com.griddynamics.finalprojectspring.controllers;
 
+import com.griddynamics.finalprojectspring.controllers.Exceptions.ValidateExistUser;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +36,7 @@ public class UserRestController {
             service.createOrUpdate(user);
             return user;
         }
-        throw new Exception();
+        throw new ValidateExistUser();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +59,7 @@ public class UserRestController {
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> ExistExceptionHandler(Exception e) {
+    public ResponseEntity<String> ExistExceptionHandler(RuntimeException e) {
         return new ResponseEntity<>("Exist user", HttpStatus.CONFLICT);
     }
 }
