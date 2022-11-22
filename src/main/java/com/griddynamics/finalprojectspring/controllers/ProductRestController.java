@@ -18,7 +18,7 @@ public class ProductRestController {
 
     private ProductService productService;
 
-    @RequestMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProductDTO> getAll() {
         return productService.getAll();
     }
