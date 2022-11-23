@@ -1,0 +1,31 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "spring.flyway.servlet.contexPath.cookie.name.max-age.timeout",
+      "type": "java.lang.String",
+      "description": "Description for spring.flyway.servlet.contexPath.cookie.name.max-age.timeout."
+    },
+    {
+      "name": "spring.server.servlet.contexPath.session",
+      "type": "java.lang.String",
+      "description": "Description for spring.server.servlet.contexPath.session."
+    },
+    {
+      "name": "spring.server.servlet.contexPath.timeout",
+      "type": "java.lang.String",
+      "description": "Description for spring.server.servlet.contexPath.timeout."
+    },
+    {
+      "name": "spring.server.servlet.session.timeout",
+      "type": "java.lang.String",
+      "description": "Description for spring.server.servlet.session.timeout."
+    },
+    {
+      "name": "spring.session.servlet.session.timeout",
+      "type": "java.lang.String",
+      "description": "Description for spring.session.servlet.session.timeout."
+    }
+  ],
+  "hints": []
+}

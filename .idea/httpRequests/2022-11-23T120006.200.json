@@ -1,0 +1,28 @@
+{
+  "order": "Successful order",
+  "amount": 3,
+  "sum": 61.900000000000006,
+  "cart": [
+    {
+      "id": 2412,
+      "title": "Hammer",
+      "quantity": 2.00,
+      "total": 2.00,
+      "sum": 15.1
+    },
+    {
+      "id": 2413,
+      "title": "Screwdriver",
+      "quantity": 5.00,
+      "total": 7.00,
+      "sum": 17.35
+    },
+    {
+      "id": 2414,
+      "title": "Pliers",
+      "quantity": 5.00,
+      "total": 5.00,
+      "sum": 29.45
+    }
+  ]
+}

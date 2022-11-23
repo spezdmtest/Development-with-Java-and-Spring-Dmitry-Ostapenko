@@ -1,0 +1,26 @@
+[
+  {
+    "id": 2411,
+    "title": "Nail gun",
+    "available": 8.00,
+    "price": "23.95"
+  },
+  {
+    "id": 2412,
+    "title": "Hammer",
+    "available": 2.00,
+    "price": "7.55"
+  },
+  {
+    "id": 2413,
+    "title": "Screwdriver",
+    "available": 7.00,
+    "price": "3.47"
+  },
+  {
+    "id": 2414,
+    "title": "Pliers",
+    "available": 5.00,
+    "price": "5.89"
+  }
+]
