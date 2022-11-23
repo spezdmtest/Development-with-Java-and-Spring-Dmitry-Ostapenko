@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.services.CartService;
-import com.griddynamics.finalprojectspring.services.SessionData;
+import com.griddynamics.finalprojectspring.config.SessionData;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;

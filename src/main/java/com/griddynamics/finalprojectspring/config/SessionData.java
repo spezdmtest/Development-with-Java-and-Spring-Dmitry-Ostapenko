@@ -1,4 +1,4 @@
-package com.griddynamics.finalprojectspring.services;
+package com.griddynamics.finalprojectspring.config;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -14,7 +14,7 @@ public class SessionData {
         System.out.println("Session object created");
     }
 
-    Principal principal;
+    private Principal principal;
 
     public Principal getPrincipal() {
         return principal;
