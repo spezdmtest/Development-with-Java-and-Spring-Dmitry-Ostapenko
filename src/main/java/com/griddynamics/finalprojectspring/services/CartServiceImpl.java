@@ -47,12 +47,6 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cart);
     }
 
-     private List<Product> getCollectProductsByIds(List<Long> productIds) {
-        return productIds.stream()
-                .map(productRepository::getById)
-                .collect(Collectors.toList());
-    }
-
     @Override
     @Transactional
     public void addProducts(Cart cart, List<Long> productIds) {
@@ -78,9 +72,9 @@ public class CartServiceImpl implements CartService {
         CartDTO cartByUser = getCartByUser(name);
         List<CartDetailDTO> cart = cartByUser.getCart();
         cart.stream().filter(id -> Objects.equals(productId, id.getId()))
-                     .forEach(newQuantity -> newQuantity.setQuantity(quantity));
+                .forEach(newQuantity -> newQuantity.setQuantity(quantity));
         cart.stream().filter(id -> Objects.equals(productId, id.getId())).
-                      forEach(newSum -> newSum.setSum(newSum.getSum() * quantity.doubleValue()));
+                forEach(newSum -> newSum.setSum(newSum.getSum() * quantity.doubleValue()));
         CartDTO cartDTO = new CartDTO();
         cartDTO.setCart(cart);
         cartDTO.calc();
@@ -91,7 +85,6 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public CartDTO getCartByUser(String name) {
-
         User user = userService.findByName(name);
         if (user == null || user.getCart() == null) {
             return new CartDTO();
@@ -99,6 +92,20 @@ public class CartServiceImpl implements CartService {
         CartDTO cartDTO = new CartDTO();
         Map<Long, CartDetailDTO> mapByProductId = new HashMap<>();
         List<Product> products = user.getCart().getProducts();
+        countProducts(products, mapByProductId);
+        cartDTO.setCart(new ArrayList<>(mapByProductId.values()));
+        cartDTO.calc();
+
+        return cartDTO;
+    }
+
+    private List<Product> getCollectProductsByIds(List<Long> productIds) {
+        return productIds.stream()
+                .map(productRepository::getById)
+                .collect(Collectors.toList());
+    }
+
+    private void countProducts(List<Product> products, Map<Long, CartDetailDTO> mapByProductId) {
         for (Product product : products) {
             CartDetailDTO cartDetailDTO = mapByProductId.get(product.getId());
             if (cartDetailDTO == null) {
@@ -108,13 +115,9 @@ public class CartServiceImpl implements CartService {
                 cartDetailDTO.setSum(cartDetailDTO.getSum() + Double.parseDouble(product.getPrice()));
                 cartDetailDTO.setTotal(cartDetailDTO.getTotal());
                 if (cartDetailDTO.getQuantity().compareTo(cartDetailDTO.getTotal()) > 0) {
-                setNotQuantity(true);
+                    setNotQuantity(true);
                 }
             }
         }
-        cartDTO.setCart(new ArrayList<>(mapByProductId.values()));
-        cartDTO.calc();
-
-        return cartDTO;
     }
 }

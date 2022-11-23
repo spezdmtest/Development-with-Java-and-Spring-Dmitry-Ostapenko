@@ -17,9 +17,9 @@ public class CartDTO {
 
     public List<CartDetailDTO> cart = new ArrayList<>();
 
-    public Double calc() {
+    public void calc() {
         this.amount = cart.size();
-        return this.sum = cart.stream()
+        this.sum = cart.stream()
                 .map(CartDetailDTO::getSum)
                 .mapToDouble(Double::doubleValue)
                 .sum();

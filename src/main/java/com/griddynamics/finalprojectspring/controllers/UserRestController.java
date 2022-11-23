@@ -31,7 +31,7 @@ public class UserRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User createUser(@RequestBody User user) throws Exception {
+    public User createUser(@RequestBody User user) throws ValidateExistUser {
         if (!service.existById(user.getId())) {
             service.createOrUpdate(user);
             return user;
