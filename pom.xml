@@ -161,10 +161,10 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>${basedir}/src/main/xsd/greeting.xsd</source>
+                        <source>${basedir}/src/main/resources/greeting.xsd</source>
                     </sources>
                     <outputDirectory>src/main/java/com/griddynamics/finalprojectspring/ws</outputDirectory>
-                    <packageName>service</packageName>
+                    <packageName>com.griddynamics.finalprojectspring.ws</packageName>
                 </configuration>
             </plugin>
         </plugins>
