@@ -15,11 +15,11 @@ public class CartDTO {
     private int amount;
     private Double sum;
 
-    public List<CartDetailDTO> cart = new ArrayList<>();
+    public List<CartDetailDTO> details = new ArrayList<>();
 
     public void calc() {
-        this.amount = cart.size();
-        this.sum = cart.stream()
+        this.amount = details.size();
+        this.sum = details.stream()
                 .map(CartDetailDTO::getSum)
                 .mapToDouble(Double::doubleValue)
                 .sum();

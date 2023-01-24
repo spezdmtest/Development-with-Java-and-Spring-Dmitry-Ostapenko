@@ -70,13 +70,13 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartDTO updateProducts(Long productId, BigDecimal quantity, String name) {
         CartDTO cartByUser = getCartByUser(name);
-        List<CartDetailDTO> cart = cartByUser.getCart();
+        List<CartDetailDTO> cart = cartByUser.getDetails();
         cart.stream().filter(id -> Objects.equals(productId, id.getId()))
                 .forEach(newQuantity -> newQuantity.setQuantity(quantity));
         cart.stream().filter(id -> Objects.equals(productId, id.getId())).
                 forEach(newSum -> newSum.setSum(newSum.getSum() * quantity.doubleValue()));
         CartDTO cartDTO = new CartDTO();
-        cartDTO.setCart(cart);
+        cartDTO.setDetails(cart);
         cartDTO.calc();
 
         return cartDTO;
@@ -93,7 +93,7 @@ public class CartServiceImpl implements CartService {
         Map<Long, CartDetailDTO> mapByProductId = new HashMap<>();
         List<Product> products = user.getCart().getProducts();
         countProducts(products, mapByProductId);
-        cartDTO.setCart(new ArrayList<>(mapByProductId.values()));
+        cartDTO.setDetails(new ArrayList<>(mapByProductId.values()));
         cartDTO.calc();
 
         return cartDTO;
