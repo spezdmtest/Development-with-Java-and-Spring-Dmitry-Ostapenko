@@ -1,8 +1,10 @@
 package com.griddynamics.finalprojectspring.services;
 
+import com.griddynamics.finalprojectspring.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.dto.ProductDTO;
@@ -19,10 +21,13 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private final ProductMapper mapper = ProductMapper.MAPPER;
+
     private final ProductRepository repository;
     private final UserService userService;
     private final CartService cartService;
+    private final SimpMessagingTemplate template;
 
     @Override
     public List<ProductDTO> getAll() {
@@ -68,6 +73,14 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public CartDTO updateToUserCart(Long productId, BigDecimal quantity, String username) {
            return cartService.updateProducts(productId, quantity, username);
+    }
+
+    @Override
+    @Transactional
+    public void addProduct(ProductDTO dto) {
+        Product product = mapper.toProduct(dto);
+        Product savedProduct = repository.save(product);
+        template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
     }
 }
 

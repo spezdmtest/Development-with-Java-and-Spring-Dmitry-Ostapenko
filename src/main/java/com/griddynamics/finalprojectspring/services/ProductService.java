@@ -11,4 +11,5 @@ public interface ProductService {
     void addToUserCart (Long productId, String username);
     void  deleteToUserCart (Long productId, String username);
     CartDTO updateToUserCart (Long productId, BigDecimal quantity, String username);
+    void addProduct(ProductDTO dto);
 }

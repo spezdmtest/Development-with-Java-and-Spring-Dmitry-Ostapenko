@@ -16,6 +16,7 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConfig {
 
     public static final String NAMESPACE_GREETING = "http://griddynamics.com/finalprojectspring/ws/greeting";
+    public static final String NAMESPACE_PRODUCTS = "http://griddynamics.com/finalprojectspring/ws/products";
 
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -26,17 +27,32 @@ public class WebServiceConfig {
     }
 
     @Bean(name = "greeting")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xdsGreetingSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("greetingPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace(NAMESPACE_GREETING);
-        wsdl11Definition.setSchema(xsdSchema);
+        wsdl11Definition.setSchema(xdsGreetingSchema);
         return wsdl11Definition;
     }
 
     @Bean
-    public XsdSchema xdsSchema() {
+    public XsdSchema xdsGreetingSchema() {
         return new SimpleXsdSchema(new ClassPathResource("greeting.xsd"));
+    }
+
+    @Bean(name = "products")
+    public DefaultWsdl11Definition productsWsdlDefinition() {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ProductsPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace(NAMESPACE_PRODUCTS);
+        wsdl11Definition.setSchema(xdsProductsSchema());
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema xdsProductsSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("products.xsd"));
     }
 }
