@@ -1,34 +1,42 @@
 package com.griddynamics.finalprojectspring.services;
 
+import com.griddynamics.finalprojectspring.config.UserIntegrationConfig;
+import com.griddynamics.finalprojectspring.dto.UserDTO;
 import com.griddynamics.finalprojectspring.entities.User;
+import com.griddynamics.finalprojectspring.mapper.UserMapper;
 import com.griddynamics.finalprojectspring.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
 @AllArgsConstructor
 public class  UserServiceImpl implements UserService{
+
+    private final UserMapper userMapper = UserMapper.USER_MAPPER;
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final UserIntegrationConfig userIntegrationConfig;
 
     @Transactional
-    public User createOrUpdate(User user){
+    public UserDTO createOrUpdate(@NotNull User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return repository.save(user);
+        return userMapper.fromUser(repository.save(user));
     }
 
-    public Optional<User> findById(Long id) {
-        return repository.findById(id);
+    public UserDTO findById(Long id) {
+        return userMapper.fromUser(repository.getById(id));
     }
 
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<UserDTO> findAll() {
+        return userMapper.fromUserList(repository.findAll());
     }
 
     @Transactional
@@ -48,6 +56,21 @@ public class  UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void save(User user) {
-        repository.save(user);
+        var savedUser = repository.save(user);
+        sendIntegrationNotify(savedUser);
     }
+
+    private void sendIntegrationNotify(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getPassword());
+
+        Message<UserDTO> message = MessageBuilder
+                .withPayload(userDTO)
+                .setHeader("Content-type", "application/json")
+                .build();
+        userIntegrationConfig.getUsersChannel().send(message);
+    }
+
 }

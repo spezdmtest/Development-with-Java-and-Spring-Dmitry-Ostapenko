@@ -17,6 +17,17 @@ Content-Type: application/json
   "password": "$2a$10$/kgIB/bDXLYhJz.1iDDRw.t4j/ipmfzrDgzX3qfJhhRYbw.9ykLYC"
 }
 
+### add user2
+POST http://localhost:8080/api/v1/user/
+Authorization: Basic my@email.com 123
+Content-Type: application/json
+
+{
+  "id": 36 ,
+  "email": "spez.dm@gmail.com",
+  "password": "$2a$10$/kgIB/bDXLYhJz.1iDDRw.t4j/ipmfzrDgzX3qfJhhRYbw.9ykLYC"
+}
+
 ### Get all products in store
 GET http://localhost:8080/api/v1/products/list
 Authorization: Basic my@email.com 123
@@ -60,7 +71,7 @@ GET http://localhost:8080/api/v1/carts/cart/session
 Authorization: Basic my@email.com 123
 
 ### delete item in carts
-GET http://localhost:8080/api/v1/products/2412/cart
+GET http://localhost:8080/api/v1/products/2414/cart
 Authorization: Basic my@email.com 123
 
 ### modify cart item

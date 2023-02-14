@@ -1,6 +1,6 @@
 package com.griddynamics.finalprojectspring.controllers;
 
-import com.griddynamics.finalprojectspring.controllers.Exceptions.ValidateExistUser;
+import com.griddynamics.finalprojectspring.dto.UserDTO;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,29 +21,27 @@ public class UserRestController {
     private UserService service;
 
     @GetMapping(path = "/{id}/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User findById(@PathVariable("id") Long id) throws NotFoundException {
-        return service.findById(id).orElseThrow(NotFoundException::new);
+    public UserDTO findById(@PathVariable("id") Long id) throws NotFoundException {
+        if (service.existById(id)) {
+            return service.findById(id);
+        }
+        throw new NotFoundException();
     }
 
     @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         return service.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User createUser(@RequestBody User user) throws ValidateExistUser {
-        if (!service.existById(user.getId())) {
-            service.createOrUpdate(user);
-            return user;
-        }
-        throw new ValidateExistUser();
+    public UserDTO createUser(@RequestBody User user) {
+            return service.createOrUpdate(user);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User updateUser(@RequestBody User user) throws NotFoundException {
+    public UserDTO updateUser(@RequestBody User user) throws NotFoundException {
         if (service.existById(user.getId())) {
-            service.createOrUpdate(user);
-            return user;
+            return service.createOrUpdate(user);
         }
         throw new NotFoundException();
     }
@@ -56,10 +54,5 @@ public class UserRestController {
     @ExceptionHandler
     public ResponseEntity<String> notFoundExceptionHandler(NotFoundException e) {
         return new ResponseEntity<>("Entity not found", HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<String> ExistExceptionHandler(RuntimeException e) {
-        return new ResponseEntity<>("Exist user", HttpStatus.CONFLICT);
     }
 }

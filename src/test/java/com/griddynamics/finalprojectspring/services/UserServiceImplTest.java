@@ -1,5 +1,6 @@
 package com.griddynamics.finalprojectspring.services;
 
+import com.griddynamics.finalprojectspring.config.UserIntegrationConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,13 +16,15 @@ class UserServiceImplTest {
     private UserRepository repository;
     private PasswordEncoder passwordEncoder;
     private UserService userService;
+    private UserIntegrationConfig userIntegrationConfig;
 
     @BeforeEach
     void SetUpBeforeEach() {
         System.out.println("Before each test");
         passwordEncoder = Mockito.mock(PasswordEncoder.class);
         repository = Mockito.mock(UserRepository.class);
-        userService = new UserServiceImpl(repository, passwordEncoder);
+        userIntegrationConfig = Mockito.mock(UserIntegrationConfig.class);
+        userService = new UserServiceImpl(repository, passwordEncoder, userIntegrationConfig);
     }
 
     @Test

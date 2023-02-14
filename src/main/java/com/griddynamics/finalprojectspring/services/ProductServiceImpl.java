@@ -1,17 +1,16 @@
 package com.griddynamics.finalprojectspring.services;
 
-import com.griddynamics.finalprojectspring.entities.Product;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Service;
 import com.griddynamics.finalprojectspring.dto.CartDTO;
 import com.griddynamics.finalprojectspring.dto.ProductDTO;
 import com.griddynamics.finalprojectspring.entities.Cart;
+import com.griddynamics.finalprojectspring.entities.Product;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.mapper.ProductMapper;
 import com.griddynamics.finalprojectspring.repositories.ProductRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
