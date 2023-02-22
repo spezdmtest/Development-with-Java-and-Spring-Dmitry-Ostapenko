@@ -81,6 +81,12 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct = repository.save(product);
         template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
     }
+
+    @Override
+    public ProductDTO getById(Long id) {
+        var product = repository.findById(id).orElse(new Product());
+        return ProductMapper.MAPPER.fromProduct(product);
+    }
 }
 
 

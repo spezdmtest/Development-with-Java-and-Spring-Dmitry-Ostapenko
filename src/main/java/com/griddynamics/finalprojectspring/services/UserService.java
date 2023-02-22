@@ -12,6 +12,7 @@ public interface UserService {
     UserDTO findById(Long id);
     List<UserDTO> findAll();
     void save(User user);
+    boolean save(UserDTO userDTO);
     void deleteById(Long id);
     boolean existById(Long id);
 }

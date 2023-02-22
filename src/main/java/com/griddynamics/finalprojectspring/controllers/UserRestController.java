@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Tag(name = "User API", description = "Testing")
@@ -20,12 +21,9 @@ public class UserRestController {
 
     private UserService service;
 
-    @GetMapping(path = "/{id}/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO findById(@PathVariable("id") Long id) throws NotFoundException {
-        if (service.existById(id)) {
-            return service.findById(id);
-        }
-        throw new NotFoundException();
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO findById(@PathVariable("id") Long id) {
+        return service.findById(id);
     }
 
     @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,19 +33,16 @@ public class UserRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO createUser(@RequestBody User user) {
-            return service.createOrUpdate(user);
+        return service.createOrUpdate(user);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO updateUser(@RequestBody User user) throws NotFoundException {
-        if (service.existById(user.getId())) {
-            return service.createOrUpdate(user);
-        }
-        throw new NotFoundException();
+    public UserDTO updateUser(@RequestBody User user) {
+        return service.createOrUpdate(user);
     }
 
     @DeleteMapping(path = "/{id}/id")
-    public void deleteById(@PathVariable("id") Long id) throws NotFoundException {
+    public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
     }
 
