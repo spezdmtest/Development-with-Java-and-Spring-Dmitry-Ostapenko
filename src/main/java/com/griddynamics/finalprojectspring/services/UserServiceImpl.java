@@ -2,7 +2,6 @@ package com.griddynamics.finalprojectspring.services;
 
 import com.griddynamics.finalprojectspring.config.UserIntegrationConfig;
 import com.griddynamics.finalprojectspring.dto.UserDTO;
-import com.griddynamics.finalprojectspring.entities.Role;
 import com.griddynamics.finalprojectspring.entities.User;
 import com.griddynamics.finalprojectspring.mapper.UserMapper;
 import com.griddynamics.finalprojectspring.repositories.UserRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -59,7 +57,7 @@ public class  UserServiceImpl implements UserService{
     @Transactional
     public void save(User user) {
         var savedUser = repository.save(user);
-        sendIntegrationNotify(savedUser);
+    //    sendIntegrationNotify(savedUser);
     }
 
     @Override

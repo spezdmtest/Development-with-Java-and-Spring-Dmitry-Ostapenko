@@ -34,3 +34,4 @@ build/
 qq
 # class files
 *.class
+/logs.log
