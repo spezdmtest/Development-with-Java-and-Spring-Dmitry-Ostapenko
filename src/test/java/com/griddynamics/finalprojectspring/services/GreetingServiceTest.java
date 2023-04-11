@@ -7,7 +7,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 
 class GreetingServiceTest {
-
     @Test
     void generateGreeting() throws DatatypeConfigurationException {
         //have
@@ -28,7 +27,5 @@ class GreetingServiceTest {
         Assertions.assertEquals(expectedDate.getYear(), date.getYear());
         Assertions.assertEquals(expectedDate.getMonthValue(), date.getMonth());
         Assertions.assertEquals(expectedDate.getDayOfMonth(), date.getDay());
-
-
     }
  }

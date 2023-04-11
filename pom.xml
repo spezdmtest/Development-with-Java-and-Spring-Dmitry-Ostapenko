@@ -193,10 +193,11 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>${basedir}/src/main/resources/greeting.xsd</source>
-                        <source>${basedir}/src/main/resources/products.xsd</source>
+                        <source>${basedir}/src/main/resources/ws/greeting.xsd</source>
+                        <source>${basedir}/src/main/resources/ws/products.xsd</source>
                     </sources>
                     <outputDirectory>src/main/java/com/griddynamics/finalprojectspring/ws</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
                     <packageName>com.griddynamics.finalprojectspring.ws</packageName>
                 </configuration>
             </plugin>
