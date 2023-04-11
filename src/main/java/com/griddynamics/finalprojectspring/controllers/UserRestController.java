@@ -22,28 +22,29 @@ public class UserRestController {
     private UserService service;
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO createUser(@RequestBody User user) {
-        return service.createOrUpdate(user);
+    public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createOrUpdate(user));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO updateUser(@RequestBody User user) {
-        return service.createOrUpdate(user);
+    public ResponseEntity<UserDTO> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(service.createOrUpdate(user));
     }
 
     @DeleteMapping(path = "/{id}/id")
-    public void deleteById(@PathVariable("id") Long id) {
+    public ResponseEntity deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @ExceptionHandler
