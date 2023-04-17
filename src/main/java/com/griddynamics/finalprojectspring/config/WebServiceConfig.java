@@ -42,18 +42,18 @@ public class WebServiceConfig {
         return new SimpleXsdSchema(new ClassPathResource("ws/greeting.xsd"));
     }
 
-//    @Bean(name = "products")
-//    public DefaultWsdl11Definition productsWsdlDefinition() {
-//        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//        wsdl11Definition.setPortTypeName("ProductsPort");
-//        wsdl11Definition.setLocationUri("/ws");
-//        wsdl11Definition.setTargetNamespace(NAMESPACE_PRODUCTS);
-//        wsdl11Definition.setSchema(xdsProductsSchema());
-//        return wsdl11Definition;
-//    }
-//
-//    @Bean
-//    public XsdSchema xdsProductsSchema() {
-//        return new SimpleXsdSchema(new ClassPathResource("products.xsd"));
-//    }
+    @Bean(name = "products")
+    public DefaultWsdl11Definition productsWsdlDefinition() {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ProductsPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace(NAMESPACE_PRODUCTS);
+        wsdl11Definition.setSchema(xdsProductsSchema());
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema xdsProductsSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("ws/products.xsd"));
+    }
 }
