@@ -4,7 +4,7 @@ spring:
       ddl-auto: validate
     show-sql: true
   data-source:
-    url: jdbc:postgresql://localhost:5433/story
+    url: jdbc:postgresql://localhost:5432/story
     username: postgres
     password: asdqwe123
   flyway:
