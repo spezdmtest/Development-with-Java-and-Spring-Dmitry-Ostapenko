@@ -34,6 +34,7 @@ public class  CartRestController {
         CartDTO cartDTO = service.getCartByUser(principal.getName());
         validateQuantity();
         return cartDTO;
+
     }
 
     @GetMapping(path = "/cart/session", produces = MediaType.APPLICATION_JSON_VALUE)
