@@ -21,8 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductMapper mapper = ProductMapper.MAPPER;
-
+    private final ProductMapper productMapper;
     private final ProductRepository repository;
     private final UserService userService;
     private final CartService cartService;
@@ -30,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAll() {
-        return mapper.fromProductList(repository.findAll());
+        return productMapper.fromProductList(repository.findAll());
     }
 
     @Override
@@ -56,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void deleteToUserCart(Long productId, String username) {
         User user = userService.findByName(username);
-        if(user == null) {
+        if (user == null) {
             throw new RuntimeException("User not found - " + username);
         }
 
@@ -64,28 +63,28 @@ public class ProductServiceImpl implements ProductService {
         if (cart == null) {
             throw new RuntimeException("Cart not found !");
         } else {
-            cartService.deleteProducts(cart,Collections.singletonList(productId));
+            cartService.deleteProducts(cart, Collections.singletonList(productId));
         }
     }
 
     @Override
     @Transactional
     public CartDTO updateToUserCart(Long productId, BigDecimal quantity, String username) {
-           return cartService.updateProducts(productId, quantity, username);
+        return cartService.updateProducts(productId, quantity, username);
     }
 
     @Override
     @Transactional
     public void addProduct(ProductDTO dto) {
-        Product product = mapper.toProduct(dto);
+        Product product = productMapper.toProduct(dto);
         Product savedProduct = repository.save(product);
-        template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
+        template.convertAndSend("/topic/products", productMapper.fromProduct(savedProduct));
     }
 
     @Override
     public ProductDTO getById(Long id) {
         var product = repository.findById(id).orElse(new Product());
-        return ProductMapper.MAPPER.fromProduct(product);
+        return productMapper.fromProduct(product);
     }
 }
 
